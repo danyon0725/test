@@ -5,7 +5,7 @@ from typing import Dict, Tuple, List, Any, Optional
 
 import numpy as np
 
-from single.short import drop
+import drop
 
 
 def _get_answers_from_data(annotations: Dict[str, Any]) -> Dict[str, List[str]]:

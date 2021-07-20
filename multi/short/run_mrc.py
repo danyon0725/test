@@ -4,11 +4,11 @@ import os
 
 import torch
 from attrdict import AttrDict
-from multi.short.model import ElectraForQuestionAnswering
-from multi.short.utils import init_logger, set_seed
+from model import ElectraForQuestionAnswering
+from utils import init_logger, set_seed
 from transformers import ElectraTokenizer, ElectraConfig
 
-from multi.short.main_functions import train, evaluate, only_scoring
+from main_functions import train, evaluate, only_scoring
 from nsml import DATASET_PATH
 from torch import nn
 
@@ -42,7 +42,7 @@ def main(cli_args):
 
     # 모델 불러오기
     model, tokenizer = create_model(args)
-
+    model = nn.DataParallel(model, device_ids=[0, 1, 2, 3])
     if args.do_train:
         train(args, model, tokenizer, logger)
     if args.do_eval:
@@ -55,7 +55,8 @@ if __name__ == '__main__':
 
     file_flag = 'baseline'
     # Directory
-    cli_parser.add_argument("--model_name_or_path", type=str, default="google/electra-base-discriminator")
+    # cli_parser.add_argument("--model_name_or_path", type=str, default="google/electra-base-discriminator")
+    cli_parser.add_argument("--model_name_or_path", type=str, default="monologg/koelectra-base-v2-discriminator")
     cli_parser.add_argument("--output_dir", type=str, default="./model")
     # cli_parser.add_argument("--train_file_path", type=str, default="../../data/refine_test.json")
     # cli_parser.add_argument("--dev_file_path", type=str, default="../../data/refine_sample.json")

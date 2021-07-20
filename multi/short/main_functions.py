@@ -3,18 +3,18 @@ import timeit
 
 import torch
 from fastprogress.fastprogress import master_bar, progress_bar
-from multi.short.processor import SquadResult
-from multi.short.squad_metric import (
+from processor import SquadResult
+from squad_metric import (
     compute_predictions_logits
 )
-from multi.short.utils import load_examples, set_seed, to_list
+from utils import load_examples, set_seed, to_list
 from torch.utils.data import DataLoader, RandomSampler, SequentialSampler
 from transformers import (
     AdamW,
     get_linear_schedule_with_warmup
 )
 
-from multi.short.multi_measure import evaluate_prediction_file
+from multi_measure import evaluate_prediction_file
 
 
 def get_best_index(logits, n_best_size):

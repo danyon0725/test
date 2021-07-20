@@ -4,7 +4,7 @@ import random
 import numpy as np
 import torch
 
-from multi.long.processor import (
+from processor import (
     SquadV1Processor,
     SquadV2Processor,
     squad_convert_examples_to_features
